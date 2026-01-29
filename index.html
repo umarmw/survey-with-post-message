@@ -416,17 +416,26 @@
 
         // Toggle sports section visibility
         function toggleSports() {
-            const holidaysValue = document.querySelector('input[name="holidays"]:checked').value;
+            const selected = document.querySelector('input[name="holidays"]:checked');
             const sportsSection = document.getElementById('sportsSection');
-            
+
+            // if nothing selected, hide section safely
+            if (!selected) {
+                sportsSection.classList.add('hidden');
+                document.querySelectorAll('input[name="sports"]').forEach(el => el.checked = false);
+                return;
+            }
+
+            const holidaysValue = selected.value;
+
             if (holidaysValue === '1-2 times' || holidaysValue === '2+ times') {
                 sportsSection.classList.remove('hidden');
             } else {
                 sportsSection.classList.add('hidden');
-                // Clear sports selection when hiding
                 document.querySelectorAll('input[name="sports"]').forEach(el => el.checked = false);
             }
         }
+
 
         // Handle form submission
         document.getElementById('surveyForm').addEventListener('submit', function(e) {
