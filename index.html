@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Survey Form</h1>
+            <p class="text-gray-600">Please answer the following questions about yourself</p>
+        </div>
+
+        <!-- Success Message (Hidden by default) -->
+        <div id="successMessage" class="hidden mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+            ✓ Form submitted successfully! Your responses have been recorded.
+        </div>
+
+        <!-- Form -->
+        <form id="surveyForm" class="space-y-8">
+
+            <!-- Question 3: Age -->
+            <div class="border-b pb-6">
+                <label for="age" class="block text-sm font-semibold text-gray-900 mb-2">
+                    What is your age? <span class="text-red-500">*</span>
+                </label>
+                <input 
+                    type="number" 
+                    id="age" 
+                    name="age" 
+                    min="18" 
+                    max="120"
+                    required
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter your age"
+                >
+            </div>
+
+            <!-- Question 4: Household Situation -->
+            <div class="border-b pb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-4">
+                    What is your household situation? <span class="text-red-500">*</span>
+                </label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="household_single" 
+                            name="household" 
+                            value="Single"
+                            required
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="household_single" class="ml-3 text-gray-700">Single</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="household_cohabiting_no_children" 
+                            name="household" 
+                            value="Cohabiting without children"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="household_cohabiting_no_children" class="ml-3 text-gray-700">Cohabiting without children</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="household_cohabiting_with_children" 
+                            name="household" 
+                            value="Cohabiting with children"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="household_cohabiting_with_children" class="ml-3 text-gray-700">Cohabiting with children</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7: Housing Type -->
+            <div class="border-b pb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-4">
+                    What is your housing type? <span class="text-red-500">*</span>
+                </label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="housing_renter" 
+                            name="housing" 
+                            value="Renter"
+                            required
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="housing_renter" class="ml-3 text-gray-700">Renter</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="housing_owner_home" 
+                            name="housing" 
+                            value="Owner home"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="housing_owner_home" class="ml-3 text-gray-700">Owner home</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="housing_owner_apartment" 
+                            name="housing" 
+                            value="Owner apartment"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="housing_owner_apartment" class="ml-3 text-gray-700">Owner apartment</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 10: Do you have any pets? -->
+            <div class="border-b pb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-4">
+                    Do you have any pets?
+                </label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="pet_dog" 
+                            name="pets" 
+                            value="Dog"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="pet_dog" class="ml-3 text-gray-700">Dog</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="pet_cat" 
+                            name="pets" 
+                            value="Cat"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="pet_cat" class="ml-3 text-gray-700">Cat</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="pet_bird" 
+                            name="pets" 
+                            value="Bird"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="pet_bird" class="ml-3 text-gray-700">Bird</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="pet_other" 
+                            name="pets" 
+                            value="Other"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="pet_other" class="ml-3 text-gray-700">Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 11: Employment Type -->
+            <div class="border-b pb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-4">
+                    What is your employment type? <span class="text-red-500">*</span>
+                </label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="employment_permanent" 
+                            name="employment" 
+                            value="Permanent contract"
+                            required
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="employment_permanent" class="ml-3 text-gray-700">Permanent contract</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="employment_temporary" 
+                            name="employment" 
+                            value="Temporary contract"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="employment_temporary" class="ml-3 text-gray-700">Temporary contract</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="employment_student" 
+                            name="employment" 
+                            value="Student"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="employment_student" class="ml-3 text-gray-700">Student</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="employment_unemployed" 
+                            name="employment" 
+                            value="Unemployed"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="employment_unemployed" class="ml-3 text-gray-700">Unemployed</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 16: Do you own a car? -->
+            <div class="border-b pb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-4">
+                    Do you own a car? <span class="text-red-500">*</span>
+                </label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="car_yes" 
+                            name="carOwnership" 
+                            value="Yes"
+                            required
+                            class="h-4 w-4 text-blue-600"
+                            onchange="toggleCarAge()"
+                        >
+                        <label for="car_yes" class="ml-3 text-gray-700">Yes</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="car_no" 
+                            name="carOwnership" 
+                            value="No"
+                            class="h-4 w-4 text-blue-600"
+                            onchange="toggleCarAge()"
+                        >
+                        <label for="car_no" class="ml-3 text-gray-700">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conditional: Car Age (only shows if car ownership = Yes) -->
+            <div id="carAgeSection" class="hidden border-b pb-6">
+                <label for="carAge" class="block text-sm font-semibold text-gray-900 mb-2">
+                    How old is your car? (in years)
+                </label>
+                <input 
+                    type="number" 
+                    id="carAge" 
+                    name="carAge" 
+                    min="0" 
+                    max="100"
+                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="Enter car age in years"
+                >
+            </div>
+
+            <!-- Question 20: Do you own other vehicles? -->
+            <div class="border-b pb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-4">
+                    Do you own other vehicles?
+                </label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="vehicle_ebike" 
+                            name="vehicles" 
+                            value="Electric bike"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="vehicle_ebike" class="ml-3 text-gray-700">Electric bike</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="vehicle_moped" 
+                            name="vehicles" 
+                            value="Moped"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="vehicle_moped" class="ml-3 text-gray-700">Moped</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="vehicle_scooter" 
+                            name="vehicles" 
+                            value="Scooter"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="vehicle_scooter" class="ml-3 text-gray-700">Scooter</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="vehicle_bicycle" 
+                            name="vehicles" 
+                            value="Bicycle"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="vehicle_bicycle" class="ml-3 text-gray-700">Bicycle</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 24: How many times do you go on holidays per year? -->
+            <div class="border-b pb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-4">
+                    How many times do you go on holidays per year? <span class="text-red-500">*</span>
+                </label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="holidays_zero" 
+                            name="holidays" 
+                            value="0"
+                            required
+                            class="h-4 w-4 text-blue-600"
+                            onchange="toggleSports()"
+                        >
+                        <label for="holidays_zero" class="ml-3 text-gray-700">0 times</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="holidays_one_two" 
+                            name="holidays" 
+                            value="1-2 times"
+                            class="h-4 w-4 text-blue-600"
+                            onchange="toggleSports()"
+                        >
+                        <label for="holidays_one_two" class="ml-3 text-gray-700">1-2 times</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="holidays_two_plus" 
+                            name="holidays" 
+                            value="2+ times"
+                            class="h-4 w-4 text-blue-600"
+                            onchange="toggleSports()"
+                        >
+                        <label for="holidays_two_plus" class="ml-3 text-gray-700">2+ times</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conditional: Do you winter sports or adventure sports? (only shows if holidays = 1-2 or 2+) -->
+            <div id="sportsSection" class="hidden border-b pb-6">
+                <label class="block text-sm font-semibold text-gray-900 mb-4">
+                    Do you do winter sports or adventure sports?
+                </label>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="sports_yes" 
+                            name="sports" 
+                            value="Yes"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="sports_yes" class="ml-3 text-gray-700">Yes</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input 
+                            type="radio" 
+                            id="sports_no" 
+                            name="sports" 
+                            value="No"
+                            class="h-4 w-4 text-blue-600"
+                        >
+                        <label for="sports_no" class="ml-3 text-gray-700">No</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="pt-6">
+                <button 
+                    type="submit" 
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+                >
+                    Submit Survey
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle car age field visibility
+        function toggleCarAge() {
+            const carYes = document.getElementById('car_yes').checked;
+            const carAgeSection = document.getElementById('carAgeSection');
+            
+            if (carYes) {
+                carAgeSection.classList.remove('hidden');
+            } else {
+                carAgeSection.classList.add('hidden');
+                document.getElementById('carAge').value = '';
+            }
+        }
+
+        // Toggle sports section visibility
+        function toggleSports() {
+            const holidaysValue = document.querySelector('input[name="holidays"]:checked').value;
+            const sportsSection = document.getElementById('sportsSection');
+            
+            if (holidaysValue === '1-2 times' || holidaysValue === '2+ times') {
+                sportsSection.classList.remove('hidden');
+            } else {
+                sportsSection.classList.add('hidden');
+                // Clear sports selection when hiding
+                document.querySelectorAll('input[name="sports"]').forEach(el => el.checked = false);
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('surveyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Collect form data
+            const formData = new FormData(this);
+            const data = {};
+
+            // Get single-select fields
+            const singleSelects = ['age', 'household', 'housing', 'employment', 'carOwnership', 'holidays', 'carAge'];
+            singleSelects.forEach(field => {
+                const value = formData.get(field);
+                if (value) {
+                    data[field] = value;
+                }
+            });
+
+            // Get multi-select checkboxes
+            const pets = formData.getAll('pets');
+            const vehicles = formData.getAll('vehicles');
+            const sports = formData.get('sports');
+
+            data.pets = pets.length > 0 ? pets : [];
+            data.vehicles = vehicles.length > 0 ? vehicles : [];
+            if (sports) {
+                data.sports = sports;
+            }
+
+            // Log data to console (for demonstration)
+            console.log('Survey Data:', data);
+
+            // Uncomment below to send to a backend server
+            /*
+            fetch('/api/survey', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                showSuccessMessage();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+            */
+
+            // Show success message
+            showSuccessMessage();
+
+            // Reset form
+            this.reset();
+            toggleCarAge();
+            toggleSports();
+        });
+
+        // Show success message
+        function showSuccessMessage() {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.classList.remove('hidden');
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                successDiv.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
