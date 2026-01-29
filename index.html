@@ -401,6 +401,7 @@
 
     <!-- JavaScript -->
     <script>
+
         // Toggle car age field visibility
         function toggleCarAge() {
             const carYes = document.getElementById('car_yes').checked;
@@ -445,6 +446,15 @@
             const formData = new FormData(this);
             const data = {};
 
+            // Add identity/token from querystring
+            const params = new URLSearchParams(window.location.search);
+            data.subscriberKey = params.get("sk") || "";
+            data.email = params.get("email") || "";
+            data.token = params.get("token") || "";
+
+            // message type
+            data.type = "SURVEY_SUBMIT";
+
             // Get single-select fields
             const singleSelects = ['age', 'household', 'housing', 'employment', 'carOwnership', 'holidays', 'carAge'];
             singleSelects.forEach(field => {
@@ -467,6 +477,8 @@
 
             // Log data to console (for demonstration)
             console.log('Survey Data:', data);
+
+            window.parent.postMessage(data, "https://YOUR-SFMC-CLOUDPAGE-DOMAIN");
 
             // Uncomment below to send to a backend server
             /*
