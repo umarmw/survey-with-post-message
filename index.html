@@ -442,71 +442,50 @@
         document.getElementById('surveyForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Collect form data
             const formData = new FormData(this);
-            const data = {};
-
-            // Add identity/token from querystring
             const params = new URLSearchParams(window.location.search);
-            data.subscriberKey = params.get("sk") || "";
-            data.email = params.get("email") || "";
-            data.token = params.get("token") || "";
 
-            // message type
-            data.type = "SURVEY_SUBMIT";
+            const payload = new URLSearchParams();
+            payload.append("subscriberKey", params.get("sk") || "");
+            payload.append("email", params.get("email") || "");
 
-            // Get single-select fields
-            const singleSelects = ['age', 'household', 'housing', 'employment', 'carOwnership', 'holidays', 'carAge'];
-            singleSelects.forEach(field => {
-                const value = formData.get(field);
-                if (value) {
-                    data[field] = value;
+            // required fields
+            payload.append("age", formData.get("age") || "");
+            payload.append("household", formData.get("household") || "");
+            payload.append("housing", formData.get("housing") || "");
+            payload.append("employment", formData.get("employment") || "");
+            payload.append("carOwnership", formData.get("carOwnership") || "");
+            payload.append("carAge", formData.get("carAge") || "");
+            payload.append("holidays", formData.get("holidays") || "");
+            payload.append("sports", formData.get("sports") || "");
+
+            // checkboxes as CSV
+            payload.append("pets", (formData.getAll("pets") || []).join(","));
+            payload.append("vehicles", (formData.getAll("vehicles") || []).join(","));
+
+            fetch("https://cloud.mailing.allianzdirect.nl/survey-test-save", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: payload.toString()
+            })
+            .then(r => r.json())
+            .then(json => {
+                console.log("SFMC save response:", json);
+                if (json.ok) {
+                    showSuccessMessage();
+                    this.reset();
+                    toggleCarAge();
+                    toggleSports();
+                } else {
+                    alert("Save failed: " + json.message);
                 }
+            })
+            .catch(err => {
+                    console.error(err);
+                    alert("Save failed");
+                });
             });
 
-            // Get multi-select checkboxes
-            const pets = formData.getAll('pets');
-            const vehicles = formData.getAll('vehicles');
-            const sports = formData.get('sports');
-
-            data.pets = pets.length > 0 ? pets : [];
-            data.vehicles = vehicles.length > 0 ? vehicles : [];
-            if (sports) {
-                data.sports = sports;
-            }
-
-            // Log data to console (for demonstration)
-            console.log('Survey Data:', data);
-
-            window.parent.postMessage(data, "https://cloud.mailing.allianzdirect.nl");
-
-            // Uncomment below to send to a backend server
-            /*
-            fetch('/api/survey', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                showSuccessMessage();
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-            */
-
-            // Show success message
-            showSuccessMessage();
-
-            // Reset form
-            this.reset();
-            toggleCarAge();
-            toggleSports();
-        });
 
         // Show success message
         function showSuccessMessage() {
