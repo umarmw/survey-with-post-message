@@ -465,26 +465,40 @@
 
             fetch("https://cloud.mailing.allianzdirect.nl/survey-test-save", {
                 method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: payload.toString()
+                headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+                body: payload.toString(),
+                credentials: "omit"
             })
-            .then(r => r.json())
+            .then(async (r) => {
+                const text = await r.text();
+                let json;
+
+                try {
+                    json = JSON.parse(text);
+                } catch (e) {
+                    console.error("Non-JSON response from SFMC:", text);
+                    throw new Error("SFMC returned non-JSON response");
+                }
+
+                return json;
+            })
             .then(json => {
                 console.log("SFMC save response:", json);
+
                 if (json.ok) {
                     showSuccessMessage();
                     this.reset();
                     toggleCarAge();
                     toggleSports();
                 } else {
-                    alert("Save failed: " + json.message);
+                    alert("Save failed: " + (json.message || "Unknown error"));
                 }
             })
             .catch(err => {
-                    console.error(err);
-                    alert("Save failed");
-                });
+                console.error("Save failed:", err);
+                alert("Save failed");
             });
+
 
 
         // Show success message
