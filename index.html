@@ -464,10 +464,11 @@
             payload.append("vehicles", (formData.getAll("vehicles") || []).join(","));
 
             fetch("https://cloud.mailing.allianzdirect.nl/survey-test-save", {
+                credentials: "omit",
                 method: "POST",
-                headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
-                body: payload.toString(),
-                credentials: "omit"
+                mode: "cors",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: payload.toString()
             })
             .then(async (r) => {
                 const text = await r.text();
